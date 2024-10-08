@@ -103,7 +103,10 @@ async function predictWebcam() {
     results = handLandmarker.detectForVideo(video, startTimeMs)
   }
   canvasCtx.save()
-  //canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height)
+  canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+  canvasCtx.beginPath();
+  canvasCtx.moveTo(0, 0);
+
   if (results.landmarks) {
     for (const landmarks of results.landmarks) {
       //check if there are two hands
@@ -139,9 +142,11 @@ async function predictWebcam() {
         }else{
           console.log("right hand "+ (results.landmarks[0][8].x));
         }
+        
+        
       }
 
-      console.log(canvasElement.width);
+      canvasCtx.stroke();
        
       
       drawConnectors(canvasCtx, landmarks, HAND_CONNECTIONS, {
